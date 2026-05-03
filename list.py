@@ -7,7 +7,8 @@ import io
 def print_tree(directory, prefix=''):
     output = []
     entries = sorted(os.listdir(directory))
-    entries = [e for e in entries if not e.startswith('.')]  # Ignore hidden files
+    WINDOWS_SYSTEM_FOLDERS = {'$recycle.bin', 'system volume information', 'recovery', 'boot', 'windows', 'programdata'}
+    entries = [e for e in entries if not e.startswith('.') and not e.startswith('$') and e.lower() not in WINDOWS_SYSTEM_FOLDERS]
     
     for index, entry in enumerate(entries):
         path = os.path.join(directory, entry)
